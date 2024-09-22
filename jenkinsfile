@@ -2,6 +2,16 @@ pipeline
 {agent any
 stages
 {
+
+stage('compile the job')    //validate then compile
+{steps { withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
+    sh 'mvn compile'
+} }}
+
+stage('execute unit test framework')    
+{steps { withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
+    sh 'mvn test'
+} }}
 stage('build the job')
 {steps { withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
     sh 'mvn package'
